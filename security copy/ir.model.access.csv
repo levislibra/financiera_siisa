@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_financiera_siisa_financiera_siisa,financiera_siisa.financiera_siisa,model_financiera_siisa_financiera_siisa,,1,0,0,0

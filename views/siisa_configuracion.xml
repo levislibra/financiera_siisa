@@ -1,0 +1,63 @@
+<openerp>
+  <data>
+
+    <!-- Financiera Siisa configuracion -->
+
+    <record model="ir.ui.view" id="financiera_siisa_conf_tree">
+      <field name="name">financiera.siisa.configuracion.tree</field>
+      <field name="model">financiera.siisa.configuracion</field>
+      <field name="arch" type="xml">
+        <tree create="false" delete="false">
+          <field name="name"/>
+          <field name="company_id" groups="base.group_erp_manager"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="financiera_siisa_conf_form" model="ir.ui.view">
+        <field name="name">financiera.siisa.configuracion.form</field>
+        <field name="model">financiera.siisa.configuracion</field>
+        <field name="arch" type="xml">
+					<form string="Configuracion" create="false" delete="false">
+						<header>
+							<button name="test_conexion" string="Probar conexión" type="object" />
+						</header>
+						<sheet>
+							<group>
+								<group>
+									<field name="company_id" groups="base.group_erp_manager"/>
+									<field name="name"/>
+									<separator string="Información conexión" colspan="2"/>
+									<field name="usuario"/>
+									<field name="token" password="True"/>
+								</group>
+								<group></group>
+							</group>
+						</sheet>
+					</form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="financiera_siisa_action">
+      <field name="name">Configuracion</field>
+      <field name="res_model">financiera.siisa.configuracion</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="financiera_siisa_conf_tree"/>
+    </record>
+
+
+    <!-- Top menu item -->
+    
+    <menuitem name="Buro Siisa" id="menu_siisa" web_icon="financiera_siisa,static/description/icon.png" groups="financiera_siisa.manager"/>
+    
+    <!-- menu categories -->
+    
+    <menuitem name="Configuracion" id="menu_config" sequence="30" parent="menu_siisa"/>
+
+    <menuitem name="Configuracion" id="menu_config_action" sequence="1" parent="menu_config" action="financiera_siisa_action"/>
+
+
+
+
+  </data>
+</openerp>
