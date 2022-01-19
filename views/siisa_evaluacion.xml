@@ -1,0 +1,54 @@
+<openerp>
+  <data>
+
+    <!-- Lista de evaluacions solicitados -->
+    <record model="ir.ui.view" id="financiera_siisa_evaluacion_tree">
+      <field name="name">financiera.siisa.evaluacion.tree</field>
+      <field name="model">financiera.siisa.evaluacion</field>
+      <field name="arch" type="xml">
+        <tree create="false" delete="false" edit="false">
+          <field name="create_date" string="Fecha"/>
+          <field name="partner_id"/>
+          <field name="oferta"/>
+					<field name="cuota_max"/>
+					<field name="plazo"/>
+					<field name="motivo"/>
+          <field name="company_id" groups="base.group_erp_manager"/>
+        </tree>
+      </field>
+    </record>
+
+
+		<record id="financiera_siisa_evaluacion_form" model="ir.ui.view">
+			<field name="name">financiera.siisa.evaluacion.form</field>
+			<field name="model">financiera.siisa.evaluacion</field>
+			<field name="arch" type="xml">
+				<form string="Evaluacion" create="false" delete="false" edit="false">
+					<sheet>
+						<group>
+							<field name="partner_id"/>
+							<field name="oferta"/>
+							<field name="cuota_max"/>
+							<field name="plazo"/>
+							<field name="motivo"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+    <record model="ir.actions.act_window" id="financiera_siisa_evaluacion_action">
+      <field name="name">Lista de evaluaciones solicitadas</field>
+      <field name="res_model">financiera.siisa.evaluacion</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="financiera_siisa_evaluacion_tree"/>
+    </record>
+
+	  <!-- menu categories -->
+    
+    <menuitem name="Evaluaciones" id="menu_evaluacion" sequence="10" parent="menu_siisa"/>
+
+    <menuitem name="Evaluaciones" id="menu_evaluacion_action" sequence="1" parent="menu_evaluacion" action="financiera_siisa_evaluacion_action"/>
+
+  </data>
+</openerp>

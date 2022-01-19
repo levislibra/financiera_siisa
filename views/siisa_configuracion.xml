@@ -20,16 +20,18 @@
         <field name="arch" type="xml">
 					<form string="Configuracion" create="false" delete="false">
 						<header>
-							<button name="test_conexion" string="Probar conexión" type="object" />
+							<button name="button_login_test" string="Probar conexión" type="object" />
 						</header>
 						<sheet>
 							<group>
 								<group>
 									<field name="company_id" groups="base.group_erp_manager"/>
 									<field name="name"/>
-									<separator string="Información conexión" colspan="2"/>
-									<field name="usuario"/>
-									<field name="token" password="True"/>
+									<separator string="Información de conexión" colspan="2"/>
+									<field name="clientId"/>
+									<field name="pinId"/>
+									<field name="password" password="True"/>
+									<field name="politicId"/>
 								</group>
 								<group></group>
 							</group>

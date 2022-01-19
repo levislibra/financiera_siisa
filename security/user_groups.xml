@@ -20,22 +20,22 @@
     </record>
 
     <!-- PERMISOS ESPECIALES -->
-		<!-- 
+
     <record model="ir.module.category" id="financiera_siisa_permisos_generales">
       <field name="name">Financiera siisa Permisos Especiales</field>
       <field name="description">Nivel de acceso</field>
       <field name="sequence">0</field>
     </record>
 
-    <record id="ver_informe" model="res.groups">
+    <!-- <record id="ver_informe" model="res.groups">
      <field name="name">Ver informe desde ficha del cliente</field>
      <field name="category_id" ref="financiera_siisa_permisos_generales"/>
-    </record>
+    </record> -->
 
     <record id="solicitar_informe" model="res.groups">
      <field name="name">Solicitar informe desde ficha del cliente</field>
      <field name="category_id" ref="financiera_siisa_permisos_generales"/>
-    </record> -->
+    </record>
 
     <!-- Permisos necesarios si es usuario de financiera o de portal -->
 
