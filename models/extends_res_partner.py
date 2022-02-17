@@ -56,9 +56,9 @@ class ExtendsResPartnerSiisa(models.Model):
 					plazo = 0
 					motivo = ""
 					if 'oferta' in data['variables'] and data['variables']['oferta'] != None:
-						oferta = data['variables']['oferta']
+						oferta = data['variables']['oferta'].split('.')[0]
 					if 'cuota_max' in data['variables'] and data['variables']['cuota_max'] != None:
-						cuota_max = data['variables']['cuota_max']
+						cuota_max = data['variables']['cuota_max'].split('.')[0]
 					if 'plazo' in data['variables'] and data['variables']['plazo'] != None:
 						plazo = data['variables']['plazo']
 					if 'motivo' in data['variables'] and data['variables']['motivo'] != None:
@@ -69,6 +69,7 @@ class ExtendsResPartnerSiisa(models.Model):
 						'plazo': plazo,
 						'motivo': motivo,
 					}
+					print("********* values **********: ", values)
 					nueva_evaluacion_id = self.env['financiera.siisa.evaluacion'].create(values)
 					print("VALUES: ", values)
 					self.write({
