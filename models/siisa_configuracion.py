@@ -10,7 +10,7 @@ import json
 
 ENDPOINT_SIISA = 'https://api.motor.siisa.com.ar'
 
-class FinancieraNosisConfiguracion(models.Model):
+class FinancieraSiisaConfiguracion(models.Model):
 	_name = 'financiera.siisa.configuracion'
 
 	name = fields.Char('Nombre')
@@ -18,6 +18,7 @@ class FinancieraNosisConfiguracion(models.Model):
 	pinId = fields.Integer('Pin')
 	password = fields.Char('Password')
 	politicId = fields.Char('Politica')
+	producto_id = fields.Many2one('financiera.siisa.producto','Producto por defecto')
 	id_informe = fields.Integer('Id proxima evaluacion', default=1)
 	company_id = fields.Many2one('res.company', 'Empresa', required=False, default=lambda self: self.env['res.company']._company_default_get('financiera.siisa.configuracion'))
 
@@ -49,6 +50,12 @@ class FinancieraNosisConfiguracion(models.Model):
 			raise Warning("La cuenta esta conectada.")
 		else:
 			raise UserError("Error de conexion.")
+class FinancieraSiisaProducto(models.Model):
+	_name = 'financiera.siisa.producto'
+
+	name = fields.Char('Nombre')
+	company_id = fields.Many2one('res.company', 'Empresa', required=False, default=lambda self: self.env['res.company']._company_default_get('financiera.siisa.producto'))
+
 class ExtendsResCompany(models.Model):
 	_name = 'res.company'
 	_inherit = 'res.company'

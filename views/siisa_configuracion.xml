@@ -32,6 +32,7 @@
 									<field name="pinId"/>
 									<field name="password" password="True"/>
 									<field name="politicId"/>
+									<field name="producto_id"/>
 								</group>
 								<group></group>
 							</group>
@@ -47,6 +48,26 @@
       <field name="view_id" ref="financiera_siisa_conf_tree"/>
     </record>
 
+		<!-- Productos -->
+
+		<record model="ir.ui.view" id="financiera_siisa_producto_tree">
+      <field name="name">financiera.siisa.producto.tree</field>
+      <field name="model">financiera.siisa.producto</field>
+      <field name="arch" type="xml">
+        <tree editable='true'>
+          <field name="name"/>
+          <field name="company_id" groups="base.group_erp_manager"/>
+        </tree>
+      </field>
+    </record>
+
+		<record model="ir.actions.act_window" id="financiera_siisa_producto_action">
+      <field name="name">Productos</field>
+      <field name="res_model">financiera.siisa.producto</field>
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="financiera_siisa_producto_tree"/>
+    </record>
+
 
     <!-- Top menu item -->
     
@@ -57,6 +78,8 @@
     <menuitem name="Configuracion" id="menu_config" sequence="30" parent="menu_siisa"/>
 
     <menuitem name="Configuracion" id="menu_config_action" sequence="1" parent="menu_config" action="financiera_siisa_action"/>
+
+		<menuitem name="Productos" id="menu_preducto_action" sequence="10" parent="menu_config" action="financiera_siisa_producto_action"/>
 
 
 

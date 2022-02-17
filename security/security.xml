@@ -8,6 +8,13 @@
 			<field name="domain_force">[('company_id','child_of',[user.company_id.id])]</field>
 		</record>
 
+		<record id="siisa_producto_rule" model="ir.rule">
+			<field name="name">siisa producto multi-company</field>
+			<field name="model_id" ref="model_financiera_siisa_producto"/>
+			<field eval="True" name="global"/>
+			<field name="domain_force">[('company_id','child_of',[user.company_id.id])]</field>
+		</record>
+
 
 	<!-- </data>  -->
 </openerp>
