@@ -2,8 +2,8 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 manager_financiera_siisa_configuracion,financiera.siisa.configuracion,model_financiera_siisa_configuracion,financiera_siisa.manager,1,1,1,1
 user_financiera_siisa_configuracion,financiera.siisa.configuracion,model_financiera_siisa_configuracion,financiera_siisa.user,1,0,0,0
 
-manager_financiera_siisa_producto,financiera.siisa.producto,model_financiera_siisa_producto,financiera_siisa.manager,1,1,1,1
-user_financiera_siisa_producto,financiera.siisa.producto,model_financiera_siisa_producto,financiera_siisa.user,1,0,0,0
-
 manager_financiera_siisa_evaluacion,financiera.siisa.evaluacion,model_financiera_siisa_evaluacion,financiera_siisa.manager,1,1,1,1
 user_financiera_siisa_evaluacion,financiera.siisa.evaluacion,model_financiera_siisa_evaluacion,financiera_siisa.user,1,1,1,0
+
+manager_financiera_siisa_producto,financiera.siisa.producto,model_financiera_siisa_producto,financiera_siisa.manager,1,1,1,1
+user_financiera_siisa_producto,financiera.siisa.producto,model_financiera_siisa_producto,financiera_siisa.user,1,0,0,0
