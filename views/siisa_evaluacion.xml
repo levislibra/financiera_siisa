@@ -13,6 +13,7 @@
 					<field name="cuota_max"/>
 					<field name="plazo"/>
 					<field name="motivo"/>
+					<field name="producto_id"/>
           <field name="company_id" groups="base.group_erp_manager"/>
         </tree>
       </field>
@@ -31,6 +32,7 @@
 							<field name="cuota_max"/>
 							<field name="plazo"/>
 							<field name="motivo"/>
+							<field name="producto_id"/>
 						</group>
 					</sheet>
 				</form>
@@ -38,7 +40,7 @@
 		</record>
 
     <record model="ir.actions.act_window" id="financiera_siisa_evaluacion_action">
-      <field name="name">Lista de evaluaciones solicitadas</field>
+      <field name="name">Motor SIISA</field>
       <field name="res_model">financiera.siisa.evaluacion</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="financiera_siisa_evaluacion_tree"/>
@@ -46,7 +48,7 @@
 
 	  <!-- menu categories -->
     
-    <menuitem name="Evaluaciones" id="menu_evaluacion" sequence="10" parent="menu_siisa"/>
+    <menuitem name="Motor de decision" id="menu_evaluacion" sequence="20" parent="menu_siisa"/>
 
     <menuitem name="Evaluaciones" id="menu_evaluacion_action" sequence="1" parent="menu_evaluacion" action="financiera_siisa_evaluacion_action"/>
 

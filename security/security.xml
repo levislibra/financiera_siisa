@@ -16,8 +16,29 @@
 		</record>
 
 		<record id="siisa_producto_rule" model="ir.rule">
-			<field name="name">siisa producto multi-company</field>
+			<field name="name">SIISA producto multi-company</field>
 			<field name="model_id" ref="model_financiera_siisa_producto"/>
+			<field eval="True" name="global"/>
+			<field name="domain_force">[('company_id','child_of',[user.company_id.id])]</field>
+		</record>
+
+		<record id="siisa_informe_rule" model="ir.rule">
+			<field name="name">SIISA Informe multi-company</field>
+			<field name="model_id" ref="model_financiera_siisa_informe"/>
+			<field eval="True" name="global"/>
+			<field name="domain_force">[('company_id','child_of',[user.company_id.id])]</field>
+		</record>
+
+		<record id="siisa_informe_variable_rule" model="ir.rule">
+			<field name="name">SIISA Informe Variable multi-company</field>
+			<field name="model_id" ref="model_financiera_siisa_informe_variable"/>
+			<field eval="True" name="global"/>
+			<field name="domain_force">[('company_id','child_of',[user.company_id.id])]</field>
+		</record>
+
+		<record id="siisa_cda_rule" model="ir.rule">
+			<field name="name">SIISA CDA multi-company</field>
+			<field name="model_id" ref="model_financiera_siisa_cda"/>
 			<field eval="True" name="global"/>
 			<field name="domain_force">[('company_id','child_of',[user.company_id.id])]</field>
 		</record>

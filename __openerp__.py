@@ -29,6 +29,8 @@
         'views/extends_res_company.xml',
         'views/siisa_configuracion.xml',
 				'views/siisa_evaluacion.xml',
+				'views/siisa_informe.xml',
+				'views/siisa_cda.xml',
 				'views/extends_res_partner.xml',
     ],
     # only loaded in demonstration mode

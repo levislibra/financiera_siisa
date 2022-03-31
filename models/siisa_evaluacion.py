@@ -9,6 +9,7 @@ class FinancieraSiisaEvaluacion(models.Model):
 	name = fields.Char('Nombre')
 	partner_id = fields.Many2one('res.partner', 'Cliente')
 	motivo = fields.Char('Motivo de rechazo')
+	producto_id = fields.Many2one('financiera.siisa.producto','Producto')
 	oferta = fields.Integer('Oferta')
 	cuota_max = fields.Integer('Cuota maxima')
 	plazo = fields.Integer('Plazo')

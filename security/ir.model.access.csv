@@ -7,3 +7,18 @@ user_financiera_siisa_evaluacion,financiera.siisa.evaluacion,model_financiera_si
 
 manager_financiera_siisa_producto,financiera.siisa.producto,model_financiera_siisa_producto,financiera_siisa.manager,1,1,1,1
 user_financiera_siisa_producto,financiera.siisa.producto,model_financiera_siisa_producto,financiera_siisa.user,1,0,0,0
+
+manager_financiera_siisa_informe,financiera.siisa.informe,model_financiera_siisa_informe,financiera_siisa.manager,1,1,1,0
+user_financiera_siisa_informe,financiera.siisa.informe,model_financiera_siisa_informe,financiera_siisa.user,1,1,1,0
+
+manager_financiera_siisa_informe_variable,financiera.siisa.informe.variable,model_financiera_siisa_informe_variable,financiera_siisa.manager,1,1,1,0
+user_financiera_siisa_informe_variable,financiera.siisa.informe.variable,model_financiera_siisa_informe_variable,financiera_siisa.user,1,1,1,0
+
+manager_financiera_siisa_cda,financiera.siisa.cda,model_financiera_siisa_cda,financiera_siisa.manager,1,1,1,1
+user_financiera_siisa_cda,financiera.siisa.cda,model_financiera_siisa_cda,financiera_siisa.user,1,0,0,0
+
+manager_financiera_siisa_cda_resultado,financiera.siisa.cda.resultado,model_financiera_siisa_cda_resultado,financiera_siisa.manager,1,1,1,1
+user_financiera_siisa_cda_resultado,financiera.siisa.cda.resultado,model_financiera_siisa_cda_resultado,financiera_siisa.user,1,1,1,0
+
+manager_financiera_siisa_cda_regla,financiera.siisa.cda.regla,model_financiera_siisa_cda_regla,financiera_siisa.manager,1,1,1,1
+user_financiera_siisa_cda_regla,financiera.siisa.cda.regla,model_financiera_siisa_cda_regla,financiera_siisa.user,1,1,1,0
