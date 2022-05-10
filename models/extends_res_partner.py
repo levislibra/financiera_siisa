@@ -9,7 +9,6 @@ import json
 from zeep import Client
 from datetime import date
 import xmltodict
-from xml.etree import ElementTree
 from dateutil.parser import parse
 
 ENDPOINT_SIISA_MOTOR = 'https://api.motor.siisa.com.ar'
@@ -40,7 +39,6 @@ class ExtendsResPartnerSiisa(models.Model):
 	siisa_partner_tipo_id_copy = fields.Many2one('financiera.partner.tipo', 'SIISA - Tipo de cliente', related='siisa_partner_tipo_id')
 
 	def is_int(self, value):
-		print(value)
 		try:
 			int(value)
 			return True
@@ -240,15 +238,11 @@ class ExtendsResPartnerSiisa(models.Model):
 					'nroDoc': int(self.dni),
 				}
 			}
-			print("SIISA: ", body)
 			data_json = json.dumps(body)
 			endpoint_politic = ENDPOINT_SIISA_MOTOR+'/api/Requests/ExecutePolicyWithDetail/'+str(siisa_configuracion_id.politicId)
 			r = requests.post(endpoint_politic, data=data_json, headers=headers)
-			print("r: ", r)
-			print("r.status_code: ", r.status_code)
 			if r.status_code == 200:
 				data = r.json()
-				print("data: ", data)
 				if data != None and 'variables' in data:
 					oferta = 0
 					cuota_max = 0
@@ -267,7 +261,6 @@ class ExtendsResPartnerSiisa(models.Model):
 						motivo = data['variables']['motivo']
 					if 'producto' in data['variables'] and data['variables']['producto'] != None:
 						producto_nombre = data['variables']['producto']
-						print("producto_nombre: ", producto_nombre)
 						producto_obj = self.pool.get('financiera.siisa.producto')
 						producto_ids = producto_obj.search(self.env.cr, self.env.uid, [
 							('company_id','=', self.company_id.id),
@@ -284,9 +277,7 @@ class ExtendsResPartnerSiisa(models.Model):
 						'motivo': motivo,
 						'producto_id': id_prodcuto,
 					}
-					print("********* values **********: ", values)
 					nueva_evaluacion_id = self.env['financiera.siisa.evaluacion'].create(values)
-					print("VALUES: ", values)
 					self.write({
 						'siisa_oferta': oferta,
 						'siisa_cuota_max': cuota_max,
