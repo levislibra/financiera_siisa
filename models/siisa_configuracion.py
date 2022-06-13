@@ -22,6 +22,7 @@ class FinancieraSiisaConfiguracion(models.Model):
 	id_informe = fields.Integer('Id proximo informe', default=1)
 	siisa_ejecutar_cda_al_solicitar_informe = fields.Boolean('Ejecutar CDAs al solicitar informe')
 	siisa_solicitar_informe_enviar_a_revision = fields.Boolean('Solicitar informe al enviar a revision')
+	dias_para_consultar_nuevo_informe = fields.Integer('Dias para consultar nuevo informe')
 	siisa_variable_1 = fields.Char('Variable 1')
 	siisa_variable_2 = fields.Char('Variable 2')
 	siisa_variable_3 = fields.Char('Variable 3')

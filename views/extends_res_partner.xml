@@ -80,6 +80,9 @@
 				</xpath>
 				<xpath expr="//group[@name='risk']" position="inside">
           <group string="SIISA Informes" col="1" style="background-color: #E6E6E6">
+						<group>
+							<field name="siisa_fecha_ultimo_informe"/>
+						</group>
 						<field name="siisa_variable_ids" readonly="1">
 							<tree limit="10">
 								<field name="sub_name"/>

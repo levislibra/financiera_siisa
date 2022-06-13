@@ -43,6 +43,7 @@
 							</group>
 							<group string="Informes SIISA">
 								<field name="siisa_ejecutar_cda_al_solicitar_informe"/>
+								<field name="dias_para_consultar_nuevo_informe"/>
 							</group>
 							<group string="Asignar al perfil del cliente">
 								<field name="asignar_nombre_cliente"/>

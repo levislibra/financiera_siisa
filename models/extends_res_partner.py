@@ -3,6 +3,7 @@
 from re import sub
 from openerp import models, fields, api
 from openerp.exceptions import UserError, ValidationError
+from datetime import datetime
 import requests
 import json
 
@@ -30,6 +31,7 @@ class ExtendsResPartnerSiisa(models.Model):
 	# integracion informes SIISA
 	siisa_informe_ids = fields.One2many('financiera.siisa.informe', 'partner_id', 'SIISA - Informes')
 	siisa_variable_ids = fields.One2many('financiera.siisa.informe.variable', 'partner_id', 'Variables')
+	siisa_fecha_ultimo_informe = fields.Datetime('Fecha ultimo informe')
 	siisa_variable_1 = fields.Char('Variable 1')
 	siisa_variable_2 = fields.Char('Variable 2')
 	siisa_variable_3 = fields.Char('Variable 3')
@@ -141,39 +143,51 @@ class ExtendsResPartnerSiisa(models.Model):
 		siisa_configuracion_id = self.company_id.siisa_configuracion_id
 		if not self.dni:
 			raise ValidationError("Identidad del cliente no definida!")
-		
-		client = Client(ENDPOINT_SIISA_INFO)
-		ayn = ''
-		nroDoc = int(self.dni)
-		cuil = 0
-		sexo = ''
-		if self.sexo == 'masculino':
-			sexo = 'M'
-		elif self.sexo == 'femenino':
-			sexo = 'F'
-		data = client.service.GetSiisa(
-			1,
-			siisa_configuracion_id.entidadId,
-			siisa_configuracion_id.pinId,
-			siisa_configuracion_id.password,
-			nroDoc,
-			cuil,
-			ayn,
-			sexo,
-			0,0,date.today(),0,0,0,0,'',''
-		)
-		data = xmltodict.parse(data['GetSiisaResult'], dict_constructor=dict)
-		if 'Consulta' in data and 'DatosSalida' in data['Consulta']:
-			nuevo_informe_id = self.env['financiera.siisa.informe'].create({})
-			self.siisa_informe_ids = [nuevo_informe_id.id]
-			self.siisa_variable_ids = [(6, 0, [])]
-			list_values = []
-			self.process_dict("", "", data['Consulta']['DatosSalida'], list_values, 0)
-			nuevo_informe_id.write({'variable_ids': list_values})
-			self.siisa_asignar_variables()
-			siisa_configuracion_id.id_informe += 1
-			if siisa_configuracion_id.siisa_ejecutar_cda_al_solicitar_informe:
-				nuevo_informe_id.ejecutar_cdas()
+		dias_para_consultar_nuevo_informe = siisa_configuracion_id.dias_para_consultar_nuevo_informe
+		dias_ultimo_informe = 0
+		if self.siisa_fecha_ultimo_informe:
+			fecha_ultimo_informe = datetime.strptime(self.siisa_fecha_ultimo_informe, "%Y-%m-%d %H:%M:%S")
+			fecha_actual = datetime.now()
+			diferencia = fecha_actual - fecha_ultimo_informe
+			dias_ultimo_informe = diferencia.days
+		print('siisa_fecha_ultimo_informe: ', self.siisa_fecha_ultimo_informe)
+		print('dias_para_consultar_nuevo_informe: ', dias_para_consultar_nuevo_informe)
+		print('dias_ultimo_informe: ', dias_ultimo_informe)
+		if not self.siisa_fecha_ultimo_informe or dias_ultimo_informe >= dias_para_consultar_nuevo_informe:
+			print('Entro a la consulta!!')
+			client = Client(ENDPOINT_SIISA_INFO)
+			ayn = ''
+			nroDoc = int(self.dni)
+			cuil = 0
+			sexo = ''
+			if self.sexo == 'masculino':
+				sexo = 'M'
+			elif self.sexo == 'femenino':
+				sexo = 'F'
+			data = client.service.GetSiisa(
+				1,
+				siisa_configuracion_id.entidadId,
+				siisa_configuracion_id.pinId,
+				siisa_configuracion_id.password,
+				nroDoc,
+				cuil,
+				ayn,
+				sexo,
+				0,0,date.today(),0,0,0,0,'',''
+			)
+			data = xmltodict.parse(data['GetSiisaResult'], dict_constructor=dict)
+			if 'Consulta' in data and 'DatosSalida' in data['Consulta']:
+				nuevo_informe_id = self.env['financiera.siisa.informe'].create({})
+				self.siisa_informe_ids = [nuevo_informe_id.id]
+				self.siisa_variable_ids = [(6, 0, [])]
+				self.siisa_fecha_ultimo_informe = datetime.now()
+				list_values = []
+				self.process_dict("", "", data['Consulta']['DatosSalida'], list_values, 0)
+				nuevo_informe_id.write({'variable_ids': list_values})
+				self.siisa_asignar_variables()
+				siisa_configuracion_id.id_informe += 1
+				if siisa_configuracion_id.siisa_ejecutar_cda_al_solicitar_informe:
+					nuevo_informe_id.ejecutar_cdas()
 
 	@api.one
 	def siisa_asignar_variables(self):
