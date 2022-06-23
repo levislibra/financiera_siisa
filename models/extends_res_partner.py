@@ -105,7 +105,7 @@ class ExtendsResPartnerSiisa(models.Model):
 			variable_tipo = type
 			variable_values = {
 					'partner_id': self.id,
-					'name': variable_nombre,
+					'name': parent_key + '_' + variable_nombre,
 					'valor': variable_valor,
 					'tipo': variable_tipo,
 					'profundidad': profundidad,
@@ -150,11 +150,7 @@ class ExtendsResPartnerSiisa(models.Model):
 			fecha_actual = datetime.now()
 			diferencia = fecha_actual - fecha_ultimo_informe
 			dias_ultimo_informe = diferencia.days
-		print('siisa_fecha_ultimo_informe: ', self.siisa_fecha_ultimo_informe)
-		print('dias_para_consultar_nuevo_informe: ', dias_para_consultar_nuevo_informe)
-		print('dias_ultimo_informe: ', dias_ultimo_informe)
 		if not self.siisa_fecha_ultimo_informe or dias_ultimo_informe >= dias_para_consultar_nuevo_informe:
-			print('Entro a la consulta!!')
 			client = Client(ENDPOINT_SIISA_INFO)
 			ayn = ''
 			nroDoc = int(self.dni)

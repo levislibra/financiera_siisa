@@ -79,12 +79,13 @@ class FinancieraSiisaCdaRegla(models.Model):
 	], 'Condicion')
 	valor = fields.Char('Valor')
 	no_rechazar = fields.Boolean('No rechazar Regla')
+	aprobar_si_no_existe = fields.Boolean('Aprobar si no existe')
 	cpm_multiplicar = fields.Float('CPM - Multiplicar base por', default=1.00)
 	cpm_sumar = fields.Float('CPM - Sumar base')
 	cpm_multiplicar_valor = fields.Float('CPM - Multiplicar valor por y sumar a base', default=0.00)
 	# De resultado
 	informe_valor	= fields.Char('Valor informe')
-	resultado = fields.Selection([('rechazado', 'Rechazado'), ('aprobado', 'Aprobado')], 'Resultado')
+	resultado = fields.Selection([('rechazado', 'Rechazado'), ('aprobado', 'Aprobado')], 'Resultado', default='rechazado')
 	detalle = fields.Char('Detalle')
 
 	@api.multi
@@ -169,3 +170,10 @@ class FinancieraSiisaCdaRegla(models.Model):
 				self.siisa_cda_resultado_id.otorgar_cpm += self.cpm_sumar
 				if variable_id.valor and variable_id.valor.isdigit():
 					self.siisa_cda_resultado_id.otorgar_cpm += int(variable_id.valor) * self.cpm_multiplicar_valor
+		else:
+			# La variable no existe!
+			self.detalle = 'La variable no existe'
+			if self.aprobar_si_no_existe:
+				self.resultado = 'aprobado'
+			else:
+				self.resultado = 'rechazado'

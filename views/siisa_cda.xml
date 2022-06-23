@@ -44,6 +44,7 @@
 													<field name="operador"/>
 													<field name="valor"/>
 													<field name="no_rechazar"/>
+													<field name="aprobar_si_no_existe"/>
 													<field name="cpm_multiplicar"/>
 													<field name="cpm_sumar"/>
 													<field name="cpm_multiplicar_valor"/>
@@ -55,6 +56,7 @@
 															<field name="operador"/>
 															<field name="valor"/>
 															<field name="no_rechazar"/>
+															<field name="aprobar_si_no_existe"/>
 															<field name="cpm_multiplicar"/>
 															<field name="cpm_sumar"/>
 															<field name="cpm_multiplicar_valor"/>

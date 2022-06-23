@@ -58,7 +58,7 @@
 									<field name="siisa_partner_tipo_id" readonly="1"/>
 								</group>
 							</group>
-							<group string="Valores Actuales" col="1">
+							<group string="Valores Actuales" col="2">
 								<group col="1">
 									<field name="siisa_oferta" readonly="1"/>
 								</group>
