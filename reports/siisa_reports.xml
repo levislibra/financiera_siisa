@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report-->
+<openerp>
+<data>
+
+	<report 
+		id="siisa_report"
+		model="res.partner"
+		string="Legajo - Informe SIISA"
+		report_type="qweb-pdf"
+		name="financiera_siisa.siisa_report_view"
+		file="financiera_siisa.siisa_report_view"
+	/>
+	<record id="financiera_siisa.siisa_report" model="ir.actions.report.xml">
+		<field name="attachment_use" eval="False"/>
+	</record>
+
+	<template id="siisa_report_view">
+		<t t-foreach="docs" t-as="o">
+			<t t-if="not o and doc">
+				<t t-set="o" t-value="doc"/>
+			</t>
+			<t t-if="o and 'company_id' in o">
+					<t t-set="company" t-value="o.company_id"/>
+			</t>
+			<t t-if="not o or not 'company_id' in o">
+					<t t-set="company" t-value="res_company"/>
+			</t>
+			<div class="header">
+				<div class="row">
+						<div class="col-xs-3">
+								<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
+						</div>
+						<div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1"/>
+				</div>
+				<div class="row zero_min_height">
+						<div class="col-xs-12">
+								<div style="border-bottom: 1px solid black;"/>
+						</div>
+				</div>
+			</div>
+			<div class="page" style="font-size:16px;">
+				<div align="center" style="font-size:16px;">
+					<h3>Informe SIISA</h3>
+				</div>
+				<table style="width:100%;" class="table table-hover table-striped">
+					<caption>DATOS DE EXISTENCIA CÍVICA Y JURÍDICA</caption>
+					<t t-foreach="o.siisa_variable_ids" t-as="v">
+						<tr t-if="v.name == 'Persona_ApellidoNombre'">
+							<td>Apellido y Nombre</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'Persona_NroDoc'">
+							<td>DNI</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'Persona_Cuil'">
+							<td>Identificación</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'Persona_Fallecido'">
+							<td>Fallecido</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'Persona_Fnac'">
+							<td>Fecha de nacimiento</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'Persona_Edad'">
+							<td>Edad</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'Persona_Sexo'">
+							<td>Genero</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+					</t>
+				</table>
+				<hr/>
+
+				<table style="width:100%;" class="table table-hover table-striped">
+					<caption>DATOS PRINCIPALES</caption>
+					<t t-foreach="o.siisa_variable_ids" t-as="v">
+						<tr t-if="v.name == 'Scoring_modelo'">
+							<td>Scoring modelo</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'Scoring_valor'">
+							<td style="font-size:20px;font-weight:700;">Scoring valor</td>
+							<td><span style="font-size:20px;font-weight:700;" t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'VariableSumarizada_SituacionActual'">
+							<td>Situacion Actual</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'VariableSumarizada_Situacion12M'">
+							<td>Situacion 12 meses</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'VariableSumarizada_MontoTotal'">
+							<td>Monto deuda en BCRA</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+						<tr t-if="v.name == 'BCRACheque_Cantidad'">
+							<td>Cantidad cheques BCRA</td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+					</t>
+				</table>
+				<hr/>
+
+				<table style="width:100%;" class="table table-hover o_my_status_table">
+					<caption>DATOS DOMICILIARIOS</caption>
+					<tr>
+						<td>
+							<table style="width:100%;" class="table table-hover table-striped">
+								<caption>DOMICILIO ACTUAL</caption>
+								<t t-foreach="o.siisa_variable_ids" t-as="v">
+									<tr t-if="v.name == 'Domicilio_1_Direccion'">
+										<td>Direccion</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Domicilio_1_NombreProvincia'">
+										<td>Provincia</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Domicilio_1_Localidad'">
+										<td>Localidad</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Domicilio_1_CodPostal'">
+										<td>Codigo Postal</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+								</t>
+							</table>
+						</td>
+						<td>
+							<table style="width:100%;" class="table table-hover table-striped">
+								<caption>DOMICILIO ANTERIOR</caption>
+								<t t-foreach="o.siisa_variable_ids" t-as="v">
+									<tr t-if="v.name == 'Domicilio_2_Direccion'">
+										<td>Direccion</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Domicilio_2_NombreProvincia'">
+										<td>Provincia</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Domicilio_2_Localidad'">
+										<td>Localidad</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Domicilio_2_CodPostal'">
+										<td>Codigo Postal</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+								</t>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<hr/>
+
+				<table style="width:100%;" class="table table-hover o_my_status_table">
+					<caption>DATOS LABORALES</caption>
+					<tr>
+						<td>
+							<table style="width:100%;" class="table table-hover table-striped">
+								<caption>TRABAJO ACTUAL</caption>
+								<t t-foreach="o.siisa_variable_ids" t-as="v">
+									<tr t-if="v.name == 'Laboral_1_antiguedad'">
+										<td>Antiguedad</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_1_razonsocial'">
+										<td>Razon Social</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_1_cuit'">
+										<td>CUIT</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_1_direccion'">
+										<td>Direccion</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_1_telefono'">
+										<td>Codigo Postal</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_1_actividad'">
+										<td>Actividad</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_1_actividad_completa'">
+										<td>Actividad Completa</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_1_sector'">
+										<td>Sector</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+								</t>
+							</table>
+						</td>
+						<td>
+							<table style="width:100%;" class="table table-hover table-striped">
+								<caption>TRABAJO ANTERIOR</caption>
+								<t t-foreach="o.siisa_variable_ids" t-as="v">
+									<tr t-if="v.name == 'Laboral_2_antiguedad'">
+										<td>Antiguedad</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_1_razonsocial'">
+										<td>Razon Social</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_2_cuit'">
+										<td>CUIT</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_2_direccion'">
+										<td>Direccion</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_2_telefono'">
+										<td>Codigo Postal</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_2_actividad'">
+										<td>Actividad</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_2_actividad_completa'">
+										<td>Actividad Completa</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+									<tr t-if="v.name == 'Laboral_2_sector'">
+										<td>Sector</td>
+										<td><span t-field="v.valor"/></td>
+									</tr>
+								</t>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<hr/>
+
+				<!-- <table style="width:100%;" class="table table-hover table-striped">
+					<caption>Financiacion</caption>
+					<t t-foreach="o.siisa_variable_ids" t-as="v">
+						<tr t-if="'CI_' in v.name and v.tipo != 'XML'">
+							<td><span t-field="v.name"/></td>
+							<td><span t-field="v.valor"/></td>
+						</tr>
+					</t>
+				</table> -->
+
+				<!-- <table style="width:100%;" class="table table-hover table-striped">
+					<caption>Financiacion Detalle</caption>
+					<t t-foreach="o.siisa_variable_ids" t-as="v">
+						<tr t-if="v.name == 'CI_Vig_Detalle_PorEntidad'">
+							<td>
+								<table style="width:100%;" class="table table-hover table-striped">
+									<caption><span t-field="v.name"/></caption>
+									<tr>
+										<td>Banco</td>
+										<td>Situacion</td>
+										<td>Monto</td>
+									</tr>
+									<t t-foreach="v.valor.replace('&lt;Detalle&gt;', '').replace('&lt;/Detalle&gt;', '').replace('&lt;D&gt;', '').split('&lt;/D&gt;')" t-as="l">
+										<tr t-if="len(l.split('|')) &gt;= 3">
+											<td><t t-esc="l.split('|')[1]"/></td>
+											<td><t t-esc="l.split('|')[2]"/></td>
+											<td>$<t t-esc="('{:,}'.format(int(l.split('|')[3]))).replace(',','#').replace('.',',').replace('#','.')"/></td>
+										</tr>
+									</t>
+								</table>
+							</td>
+						</tr>
+						<tr t-if="v.name == 'CI_24m_Detalle_PorPeriodo'">
+							<td>
+								<table style="width:100%;" class="table table-hover table-striped">
+									<caption><span t-field="v.name"/></caption>
+									<tr>
+										<td>Periodo</td>
+										<td>Situacion</td>
+										<td>Monto</td>
+									</tr>
+									<t t-foreach="v.valor.replace('&lt;Detalle&gt;', '').replace('&lt;/Detalle&gt;', '').replace('&lt;D&gt;', '').split('&lt;/D&gt;')" t-as="l">
+										<tr t-if="len(l.split('|')) &gt;= 2">
+											<td><t t-esc="l.split('|')[0][4:6]"/>-<t t-esc="l.split('|')[0][:4]"/></td>
+											<td><t t-esc="l.split('|')[1]"/></td>
+											<td>$<t t-esc="('{:,}'.format(int(l.split('|')[2]))).replace(',','#').replace('.',',').replace('#','.')"/></td>
+										</tr>
+									</t>
+								</table>
+							</td>
+						</tr>
+					</t>
+				</table> -->
+				<hr/>
+			</div>
+		</t>
+</template>
+
+</data>
+</openerp>

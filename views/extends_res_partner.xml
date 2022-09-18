@@ -1,164 +1,103 @@
 <openerp>
-  <data>
+	<data>
 
-		<!-- Perfil del cliente - Page -->
+		<!-- Perfil del cliente Group Risk -->
 
-    <record id="partner_siisa_form_inherited"  model="ir.ui.view">
-      <field name="name">Extension Partner siisa form</field>
-      <field name="model">res.partner</field>
-      <field name="inherit_id" ref="base.view_partner_form"/>
-      <field name="arch" type="xml">
-        <xpath expr="//page[3]" position='after'>
-          <page string='SIISA'>
-            <notebook>
-              <page string="Informes">
-								<group col="1">
-									<field name="siisa_informe_ids">
-										<tree>
-											<field name="create_date" string="Fecha"/>
-											<field name="variable_ids"/>
-										</tree>
-									</field>
-								</group>
-              </page>
-            </notebook>
-          </page>
-        </xpath>
-      </field>
-    </record>
-
-
-    <!-- Perfil del cliente Group Risk -->
-
-		<record id="partner_siisa_risk_form_inherited"  model="ir.ui.view">
+		<record id="partner_siisa_risk_form_inherited" model="ir.ui.view">
 			<field name="name">Extension Partner Siisa form</field>
 			<field name="model">res.partner</field>
-			<field name="inherit_id" ref="financiera_prestamos.partner_form_inherited"/>
+			<field name="inherit_id" ref="financiera_prestamos.partner_form_inherited" />
 			<field name="arch" type="xml">
-				<xpath expr="//group[@name='risk']" position="inside">
-					<group string="SIISA Motor de decision" col="1" style="background-color: #E6E6E6">
-						<field name="siisa_evaluacion_ids" readonly="1">
-							<tree limit="5">
-								<field name="create_date" string="Fecha"/>
-								<field name="name"/>
-								<field name="oferta"/>
-								<field name="cuota_max"/>
-								<field name="plazo"/>
-								<field name="motivo"/>
-							</tree>
-						</field>
-						<group col="2">
-							<group col="1">
-								<group string="Funciones" col="2">
-									<field name="siisa_ingreso"/>
-									<button name="siisa_evaluar" string="Evaluar cliente" type="object" confirm="Desea Evaluar al cliente?" groups="financiera_siisa.solicitar_informe"/>
-								</group>
-								<group string="Otorgamiento" col="1" style="background-color: lightsteelblue;">
-									<field name="siisa_capacidad_pago_mensual" readonly="1"/>
-									<field name="siisa_partner_tipo_id" readonly="1"/>
-								</group>
+				<xpath expr="//notebook[@name='risk']" position="inside">
+					<page string="SIISA - Informes" col="1" style="background-color: #E6E6E6">
+						<group col="3">
+							<group string="Funciones" col="1">
+								<button name="button_solicitar_informe_siisa" string="Solicitar informe" type="object" confirm="Desea solicitar el informe?" groups="financiera_siisa.solicitar_informe" />
+								<button name="ejecutar_cdas_siisa" string="Ejecutar CDAs" type="object" confirm="Desea ejecutar el CDA?" />
+								<!-- <button name="siisa_report" string="Imprimir informe siisa" type="object"/> -->
 							</group>
-							<group string="Valores Actuales" col="2">
-								<group col="1">
-									<field name="siisa_oferta" readonly="1"/>
-								</group>
-								<group col="1">
-									<field name="siisa_cuota_max" readonly="1"/>
-								</group>
-								<group col="1">
-									<field name="siisa_plazo" readonly="1"/>
-								</group>
-								<group col="1">
-									<field name="siisa_motivo" readonly="1"/>
-								</group>
-								<group col="1">
-									<field name="siisa_producto_id" readonly="1"/>
-								</group>
-							</group>								
-						</group>
-					</group>
-				</xpath>
-				<xpath expr="//group[@name='risk']" position="inside">
-          <group string="SIISA Informes" col="1" style="background-color: #E6E6E6">
-						<group>
-							<field name="siisa_fecha_ultimo_informe"/>
-						</group>
-						<field name="siisa_variable_ids" readonly="1">
-							<tree limit="10">
-								<field name="sub_name"/>
-								<field name="name"/>
-								<field name="valor"/>
-							</tree>
-						</field>
-						<group col="2">
-							<group col="1">
-								<group string="Funciones" col="1">
-									<button name="button_solicitar_informe_siisa" string="Solicitar informe" type="object" confirm="Desea solicitar el informe?" groups="financiera_siisa.solicitar_informe"/>
-									<button name="ejecutar_cdas_siisa" string="Ejecutar CDAs" type="object" confirm="Desea ejecutar el CDA?"/>
-									<!-- <button name="siisa_report" string="Imprimir informe siisa" type="object"/> -->
-								</group>
-								<group string="Otorgamiento" col="1" style="background-color: lightsteelblue;">
-									<field name="siisa_capacidad_pago_mensual_copy" readonly="1"/>
-									<field name="siisa_partner_tipo_id_copy" readonly="1"/>
-								</group>
+							<group string="Otorgamiento" col="1" style="background-color: lightsteelblue;">
+								<field name="siisa_capacidad_pago_mensual_copy" readonly="1" />
+								<field name="siisa_partner_tipo_id_copy" readonly="1" />
 							</group>
 							<group string="Valores Principales" col="1">
-								<group col="1">
-									<button string="Actualizar valores" name="asignar_variables" type="object" class="oe_highlight"/>
-								</group>
-								<group col="1">
-									<div><field name="siisa_variable_1" readonly="1"/></div>
-								</group>
-								<group col="1">
-									<div><field name="siisa_variable_2" readonly="1"/></div>
-								</group>
-								<group col="1">
-									<div><field name="siisa_variable_3" readonly="1"/></div>
-								</group>
-								<group col="1">
-									<div><field name="siisa_variable_4" readonly="1"/></div>
-								</group>
-								<group col="1">
-									<div><field name="siisa_variable_5" readonly="1"/></div>
-								</group>
+								<button string="Actualizar valores" name="asignar_variables" type="object" class="oe_highlight" />
+								<div><field name="siisa_variable_1" readonly="1"/></div>
+								<div><field name="siisa_variable_2" readonly="1"/></div>
+								<div><field name="siisa_variable_3" readonly="1"/></div>
+								<div><field name="siisa_variable_4" readonly="1"/></div>
+								<div><field name="siisa_variable_5" readonly="1"/></div>
 							</group>
 						</group>
-          </group>
-        </xpath>
+						<group string="Informe actual" col="2">
+							<group col="1">
+								<field name="siisa_fecha_ultimo_informe" />
+								<field name="siisa_variable_ids" readonly="1">
+									<tree limit="10">
+										<field name="sub_name" />
+										<field name="name" />
+										<field name="valor" />
+									</tree>
+								</field>
+							</group>
+							<group col="1">
+								<label string="Cuestionario VID" />
+							</group>
+						</group>
+						<group string="Informes historico" col="2">
+							<group col="1">
+								<field name="siisa_informe_ids">
+									<tree>
+										<field name="create_date" string="Fecha" />
+										<field name="variable_ids" />
+									</tree>
+								</field>
+							</group>
+							<group col="1">
+								<label string="Cuestionario VID" />
+							</group>
+						</group>
+					</page>
+				</xpath>
+				<xpath expr="//notebook[@name='risk']" position="inside">
+					<page string="SIISA - Motor" col="1" style="background-color: #E6E6E6">
+						<group col="3">
+							<group string="Funciones" col="1">
+								<field name="siisa_ingreso" />
+								<button name="siisa_evaluar" string="Evaluar cliente" type="object" confirm="Desea Evaluar al cliente?" groups="financiera_siisa.solicitar_informe" />
+							</group>
+							<group string="Otorgamiento" col="1" style="background-color: lightsteelblue;">
+								<field name="siisa_capacidad_pago_mensual" readonly="1" />
+								<field name="siisa_partner_tipo_id" readonly="1" />
+							</group>
+							<group string="Valores Actuales" col="1">
+								<field name="siisa_oferta" readonly="1"/>
+								<field name="siisa_cuota_max" readonly="1"/>
+								<field name="siisa_plazo" readonly="1"/>
+								<field name="siisa_motivo" readonly="1"/>
+								<field name="siisa_producto_id" readonly="1"/>
+							</group>
+						</group>
+						<group string="Resultados Motor" col="2">
+							<group col="1">
+								<field name="siisa_evaluacion_ids" readonly="1">
+									<tree limit="5">
+										<field name="create_date" string="Fecha" />
+										<field name="name" />
+										<field name="oferta" />
+										<field name="cuota_max" />
+										<field name="plazo" />
+										<field name="motivo" />
+									</tree>
+								</field>
+							</group>
+							<group></group>
+						</group>
+					</page>
+				</xpath>
 			</field>
 		</record>
 
-		<!-- Prestamo - Riesgo Crediticio -->
 
-    <!-- <record id="financiera_res_partner_scoring_form_inherit"  model="ir.ui.view">
-      <field name="name">Extension Partner rol form</field>
-      <field name="model">res.partner</field>
-      <field name="inherit_id" ref="financiera_prestamos.financiera_res_partner_scoring_form"/>
-      <field name="arch" type="xml">
-        <xpath expr="//group[@name='risk']" position="after">
-          <group string="siisa" col="1" style="background-color: #E6E6E6">
-						<group col="2">
-							<group col="1">
-								<field name="siisa_capacidad_pago_mensual" readonly="1"/>
-							</group>
-							<group col="1">
-								<field name="siisa_partner_tipo_id" readonly="1"/>
-							</group>
-						</group>
-						<field name="siisa_variable_ids">
-							<tree limit="10">
-								<field name="descripcion"/>
-								<field name="valor"/>
-							</tree>
-						</field>
-            <separate col="1"/>
-            <group col="2">
-              <button name="button_solicitar_informe_siisa" string="Solicitar informe" type="object" confirm="Desea solicitar el informe?" groups="financiera_siisa.solicitar_informe"/>
-            </group>
-          </group>
-        </xpath>
-      </field>
-    </record> -->
-
-  </data>
+	</data>
 </openerp>
