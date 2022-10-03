@@ -8,8 +8,11 @@
 			<field name="model">res.partner</field>
 			<field name="inherit_id" ref="financiera_prestamos.partner_form_inherited" />
 			<field name="arch" type="xml">
+				<xpath expr="//group[@name='risk_contratado']" position="inside">
+					<field name='siisa_contratado_informes' invisible="0"/>
+				</xpath>
 				<xpath expr="//notebook[@name='risk']" position="inside">
-					<page string="SIISA - Informes" col="1" style="background-color: #E6E6E6">
+					<page string="SIISA - Informes" col="1" attrs="{'invisible': [('siisa_contratado_informes', '=', False)]}">
 						<group col="3">
 							<group string="Funciones" col="1">
 								<button name="button_solicitar_informe_siisa" string="Solicitar informe" type="object" confirm="Desea solicitar el informe?" groups="financiera_siisa.solicitar_informe" />
@@ -59,8 +62,11 @@
 						</group>
 					</page>
 				</xpath>
+				<xpath expr="//group[@name='risk_contratado']" position="inside">
+					<field name='siisa_contratado_motor' invisible="0"/>
+				</xpath>
 				<xpath expr="//notebook[@name='risk']" position="inside">
-					<page string="SIISA - Motor" col="1" style="background-color: #E6E6E6">
+					<page string="SIISA - Motor" col="1" attrs="{'invisible': [('siisa_contratado_motor', '=', False)]}">
 						<group col="3">
 							<group string="Funciones" col="1">
 								<field name="siisa_ingreso" />

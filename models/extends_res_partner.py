@@ -18,6 +18,7 @@ class ExtendsResPartnerSiisa(models.Model):
 	_name = 'res.partner'
 	_inherit = 'res.partner'
 
+	siisa_contratado_motor = fields.Boolean(string='Motor SIISA Contratado', compute='_compute_siisa_contratado_motor')
 	siisa_evaluacion_ids = fields.One2many('financiera.siisa.evaluacion', 'partner_id', 'SIISA - Evaluaciones')
 	siisa_ingreso = fields.Char(related='app_ingreso')
 	siisa_oferta = fields.Integer('SIISA Oferta')
@@ -29,6 +30,7 @@ class ExtendsResPartnerSiisa(models.Model):
 	siisa_partner_tipo_id = fields.Many2one('financiera.partner.tipo', 'SIISA - Tipo de cliente')
 
 	# integracion informes SIISA
+	siisa_contratado_informes = fields.Boolean(string='SIISA Informes Contratado', compute='_compute_siisa_contratado_informes')
 	siisa_informe_ids = fields.One2many('financiera.siisa.informe', 'partner_id', 'SIISA - Informes')
 	siisa_variable_ids = fields.One2many('financiera.siisa.informe.variable', 'partner_id', 'Variables')
 	siisa_fecha_ultimo_informe = fields.Datetime('Fecha ultimo informe')
@@ -39,6 +41,14 @@ class ExtendsResPartnerSiisa(models.Model):
 	siisa_variable_5 = fields.Char('Variable 5')
 	siisa_capacidad_pago_mensual_copy = fields.Float('SIISA - CPM', digits=(16,2), related='siisa_capacidad_pago_mensual')
 	siisa_partner_tipo_id_copy = fields.Many2one('financiera.partner.tipo', 'SIISA - Tipo de cliente', related='siisa_partner_tipo_id')
+
+	@api.one
+	def _compute_siisa_contratado_motor(self):
+		self.siisa_contratado_motor = True if (self.company_id.siisa_configuracion_id and self.company_id.siisa_configuracion_id.politicId > 0) else False
+
+	@api.one
+	def _compute_siisa_contratado_informes(self):
+		self.siisa_contratado_informes = True if (self.company_id.siisa_configuracion_id and self.company_id.siisa_configuracion_id.entidadId) else False
 
 	def is_int(self, value):
 		try:
