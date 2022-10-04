@@ -18,7 +18,7 @@ class ExtendsResPartnerSiisa(models.Model):
 	_name = 'res.partner'
 	_inherit = 'res.partner'
 
-	siisa_contratado_motor = fields.Boolean(string='Motor SIISA Contratado', compute='_compute_siisa_contratado_motor')
+	siisa_contratado_motor = fields.Boolean(string='Motor SIISA', compute='_compute_siisa_contratado_motor')
 	siisa_evaluacion_ids = fields.One2many('financiera.siisa.evaluacion', 'partner_id', 'SIISA - Evaluaciones')
 	siisa_ingreso = fields.Char(related='app_ingreso')
 	siisa_oferta = fields.Integer('SIISA Oferta')
@@ -30,7 +30,7 @@ class ExtendsResPartnerSiisa(models.Model):
 	siisa_partner_tipo_id = fields.Many2one('financiera.partner.tipo', 'SIISA - Tipo de cliente')
 
 	# integracion informes SIISA
-	siisa_contratado_informes = fields.Boolean(string='SIISA Informes Contratado', compute='_compute_siisa_contratado_informes')
+	siisa_contratado_informes = fields.Boolean(string='SIISA Informes', compute='_compute_siisa_contratado_informes')
 	siisa_informe_ids = fields.One2many('financiera.siisa.informe', 'partner_id', 'SIISA - Informes')
 	siisa_variable_ids = fields.One2many('financiera.siisa.informe.variable', 'partner_id', 'Variables')
 	siisa_fecha_ultimo_informe = fields.Datetime('Fecha ultimo informe')
